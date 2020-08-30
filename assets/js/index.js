@@ -1,54 +1,64 @@
 "use strict";
-/* 
-const headingElem = document.getElementById("mainHeader");
 
-const headings = document.getElementsByTagName("h1");
-const elemsWithClass = document.getElementsByClassName("head");
+const database = [{
+    src:
+      "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+    desr: "man",
+  },
+  {
+    src:
+      "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+    desr: "man",
+  },
+  {
+    src:
+      "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+    desr: "man",
+  },
+];
 
-const t1 = document.querySelector(".head");
-const t2 = document.querySelectorAll("h1");
 
-const [inputElem, ...arrayWithElements] = document.getElementsByTagName(
-  "input"
+
+
+
+const slider = new Slider([
+  new Slide(
+    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+    "man"
+  ),
+  new Slide(
+    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg",
+    "demo"
+  ),
+  new Slide(
+    "https://image.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-260nw-407021107.jpg",
+    "grass"
+  ),
+]);
+
+const img = document.getElementById("image");
+const [prevBtn, nextBtn] = document.querySelectorAll(
+  "#sliderContainer> div > button"
 );
- */
 
-const buttonElem = document.getElementById("btn");
-const bodyElem = document.querySelector("body");
-const divElem = document.querySelector("div");
+const createButtonHandler = (direction = "next") => {
+  return (event) => {
+    const newIndex = slider[direction === "next" ? "nextIndex" : "prevIndex"];
+    slider.currentIndex = newIndex;
+    updateView();
+  };
+};
 
-function clickHandler(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  console.dir(event);
+nextBtn.addEventListener("click", createButtonHandler("next"));
+prevBtn.addEventListener("click", createButtonHandler("prev"));
+
+updateView();
+
+function updateView() {
+  const {
+    currentSlide: { src, description },
+  } = slider;
+
+  img.setAttribute("src", src);
+  img.setAttribute("title", description);
 }
-
-//buttonElem.dispatchEvent(new MouseEvent("click"));
-
-buttonElem.addEventListener("click", clickHandler, {
-  once: true,
-});
-divElem.addEventListener("click", clickHandler);
-bodyElem.addEventListener("click", clickHandler);
-
-//========
-
-const container = document.querySelector(".container");
-
-const form = document.querySelector("form");
-console.dir(form);
-
-function onSubmitHandler(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  console.log(event);
-}
-form.addEventListener("submit", clickHandler);
-container.addEventListener("click", clickHandler);
-
-const buttonElem2 = document.getElementById("btn2");
-const inputElem = document.getElementById("test");
-buttonElem2.addEventListener("click", (event) => {
-  console.dir(event.currentTarget.parentNode.firstChild);
-  inputElem.value = "sample text";
-});
