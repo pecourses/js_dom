@@ -18,18 +18,37 @@ const bodyElem = document.querySelector("body");
 const divElem = document.querySelector("div");
 
 function clickHandler(event) {
-  console.dir(event.currentTarget.nodeName);
+  event.preventDefault();
+  event.stopPropagation();
+  console.dir(event);
 }
 
 //buttonElem.dispatchEvent(new MouseEvent("click"));
 
-buttonElem.addEventListener("click", clickHandler);
+buttonElem.addEventListener("click", clickHandler, {
+  once: true,
+});
 divElem.addEventListener("click", clickHandler);
 bodyElem.addEventListener("click", clickHandler);
 
 //========
 
+const container = document.querySelector(".container");
+
 const form = document.querySelector("form");
-console.log(document.forms);
-console.log(document.images);
-console.log(document.links);
+console.dir(form);
+
+function onSubmitHandler(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  console.log(event);
+}
+form.addEventListener("submit", clickHandler);
+container.addEventListener("click", clickHandler);
+
+const buttonElem2 = document.getElementById("btn2");
+const inputElem = document.getElementById("test");
+buttonElem2.addEventListener("click", (event) => {
+  console.dir(event.currentTarget.parentNode.firstChild);
+  inputElem.value = "sample text";
+});
