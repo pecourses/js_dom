@@ -1,6 +1,7 @@
 "use strict";
 
-const database = [{
+const database = [
+  {
     src:
       "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
     desr: "man",
@@ -17,24 +18,11 @@ const database = [{
   },
 ];
 
+const slides = database.map((slide) => {
+  // Your code here to create Slides objects.
+});
 
-
-
-
-const slider = new Slider([
-  new Slide(
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-    "man"
-  ),
-  new Slide(
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg",
-    "demo"
-  ),
-  new Slide(
-    "https://image.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-260nw-407021107.jpg",
-    "grass"
-  ),
-]);
+const slider = new Slider(slides);
 
 const img = document.getElementById("image");
 const [prevBtn, nextBtn] = document.querySelectorAll(
